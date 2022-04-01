@@ -1,0 +1,49 @@
+
+<div class="form-text container">
+    <div class="form-row mt-4">
+        <div class="col-md-10">
+            <h2>Servicios</h2>
+        </div>
+        <div class="col-md-2">
+            Fecha Inicial<input type="date" id="fechaInicial" [(ngModel)]="fechaInicial" (change)="changeDate($event)" placeholder="yyyy-MM-dd"><br>
+            Fecha Final<input type="date" id="fechaFinal" [(ngModel)]="fechaFinal" (change)="changeDate($event)" placeholder="yyyy-MM-dd"><br>
+        </div>
+    </div>
+    <div class="form-row mt-4">
+        <div *ngIf="idSerie">
+            <strong>ID SERIE {{idSerie}}</strong><br>
+            <strong>Titulo: {{titulo}}</strong><br>
+            <strong>Valor minimo: {{minimo}}</strong><br>
+            <strong>Valor maximo: {{maximo}}</strong><br>
+            <strong>Promedio: {{promedio}}</strong><br>
+        </div>
+        <strong *ngIf="minimo > 0">{{minimo}}</strong>
+        <ul  *ngFor="let serie of series">
+            <li>Fecha: {{serie.fecha}} Valor: {{serie.dato}}</li>
+        </ul>
+
+        <button type="button" class="btn btn-primary btn-block" (click)="getUdis()">Consultar UDIS</button>
+    </div>
+    <div class="form-row mt-4">
+        <button type="button" class="btn btn-primary btn-block"  (click)="getDolar()">Consultar Tipo Cambio Dolares</button>
+    </div>
+    <div class="form-row mt-4">
+        <button type="button" class="btn btn-primary btn-block"  (click)="getTiies()">Consultar TIIES</button>
+    </div>
+    <div class="form-row mt-4">
+        <button type="button" class="btn btn-primary btn-block"  (click)="generarGrafica()">Graficar</button>
+    </div>
+
+
+    <div class="chart-wrapper">
+        <canvas baseChart id="chart"
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [chartType]="barChartType">
+      </canvas>
+    </div>
+
+</div>

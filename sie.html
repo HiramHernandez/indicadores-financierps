@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+	td {
+		background-color: #E8E8E8;
+		padding: 5px;
+	}
+	table { 
+    	border-spacing: 5px;
+    	border-collapse: separate;
+	}
+</style>
+<script
+	src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'></script>
+<script>
+$(function(){
+	$.ajax({
+		url : 'https://www.banxico.org.mx/SieAPIRest/service/v1/series/SP74665,SF61745,SF60634,SF43773/datos/oportuno?token=69fc00f7a95413005702f9190d42628d76064d9c1229da36a52dc242b3522f59',
+		jsonp : 'callback',
+		dataType : 'jsonp', //Se utiliza JSONP para realizar la consulta cross-site
+		success : function(response) {  //Handler de la respuesta
+			var series=response.bmx.series;
+			
+			//Se carga una tabla con los registros obtenidos
+			for (var i in series) {
+				  var serie=series[i];
+				  var reg='<tr><td>'+serie.titulo+'</td><td>'+serie.datos[0].fecha+'</td><td>'+serie.datos[0].dato+'</td></tr>'
+				  $('#result').append(reg);
+			}
+		}
+	});
+});
+</script>
+</head>
+<body>
+<table id='result'>
+</table>
+</body>
+</html>
